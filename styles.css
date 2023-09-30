@@ -99,6 +99,9 @@ body {
 }
 .toggleLDMode {
     background-color: var(--button-pink);
+    font-size: 2vw;
+    font-weight: 600;
+    opacity: 0.8;
 }
 .lightMode .btnContainer {
     background-color: white;
@@ -117,7 +120,7 @@ body {
     font-weight: 600;
     opacity: 0.8;
 }
-.btn:hover {
+.btn:hover, .toggleLDMode:hover {
     opacity: 1;
     font-weight: 800;
 }
