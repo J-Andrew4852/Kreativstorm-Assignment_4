@@ -35,7 +35,6 @@ body {
     height: 38vw;
     width: 30vw;
     border-radius: 3vw;
-    overflow: hidden;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
     padding: 1.2vw 1.5vw 1.2vw 1.5vw;
 }
@@ -55,7 +54,7 @@ body {
     margin-bottom: 0.5vw;
     border-top-left-radius: 2vw;
     border-top-right-radius: 2vw;
-    flex-direction: column;
+    overflow-x: auto;
 }
 .darkMode .screenContainer {
     background-color: var(--light-off-gray);
