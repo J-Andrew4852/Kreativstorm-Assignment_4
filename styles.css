@@ -56,6 +56,14 @@ body {
     border-top-right-radius: 2vw;
     overflow-x: auto;
 }
+.screenContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+    width: fit-content;
+    min-width: 100%;
+}
 .darkMode .screenContainer {
     background-color: var(--light-off-gray);
 }
@@ -71,6 +79,7 @@ body {
     text-align: right;
     padding: 0 1.5vw 0 0;
     margin: 0 0 0 0;
+    width: fit-content;
 }
 .screenMain {
     height: 65%;
@@ -81,6 +90,7 @@ body {
     text-align: right;
     padding: 0 2vw 0 0;
     margin: 0 0 0 0;
+    width: fit-content;
 }
 .btnContainer {
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
