@@ -20,7 +20,11 @@ function calculate(button) {
         screenMainDisplay.textContent = "0";
     } else if (value === "=") {
         screenTopDisplay.textContent = cumulativeCalculation;
-        screenMainDisplay.textContent = eval(cumulativeCalculation);
+        let result = eval(cumulativeCalculation);
+        const formattedResult = Number.isInteger(result) ? result : parseFloat(result).toFixed(2);
+        screenMainDisplay.textContent = formattedResult;
+        calculation = [formattedResult];
+        cumulativeCalculation = formattedResult;
     } else if (value === "+/-") {
         const lastIndex = calculation.length - 1;
         if (lastIndex >= 0 && !isNaN(calculation[lastIndex])) {
@@ -31,7 +35,7 @@ function calculate(button) {
     } else {
         calculation.push(value);
         cumulativeCalculation = calculation.join("");
-        screenMainDisplay.textContent = cumulativeCalculation;
+        screenTopDisplay.textContent = cumulativeCalculation;
     }
 }
 
