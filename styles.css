@@ -16,7 +16,9 @@
 }
 body {
     display: flex;
+    min-height: 100vh;
     justify-content: center;
+    align-items: center;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 .darkMode {
@@ -26,15 +28,13 @@ body {
     background-color: var(--light-off-white);
 }
 .gridContainer {
-    margin-top: 5vh;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    gap: 0.7vw;
     height: 38vw;
     width: 30vw;
     border-radius: 3vw;
-    overflow: hidden;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
     padding: 1.2vw 1.5vw 1.2vw 1.5vw;
 }
@@ -54,7 +54,15 @@ body {
     margin-bottom: 0.5vw;
     border-top-left-radius: 2vw;
     border-top-right-radius: 2vw;
+    overflow-x: auto;
+}
+.screenContent {
+    display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+    width: fit-content;
+    min-width: 100%;
 }
 .darkMode .screenContainer {
     background-color: var(--light-off-gray);
@@ -67,22 +75,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: end;
+    font-size: 1.5vw;
+    text-align: right;
+    padding: 0 1.5vw 0 0;
+    margin: 0 0 0 0;
+    width: fit-content;
 }
 .screenMain {
     height: 65%;
     display: flex;
     align-items: center;
     justify-content: end;
-}
-.screenTop h4 {
-    margin: 0 2vw 0 2vw;
-    font-size: 1.5vw;
-    text-align: right;
-}
-.screenMain h2 {
-    margin: 0 2vw 0 2vw;
     font-size: 4vw;
     text-align: right;
+    padding: 0 2vw 0 0;
+    margin: 0 0 0 0;
+    width: fit-content;
 }
 .btnContainer {
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
@@ -103,6 +111,9 @@ body {
 }
 .toggleLDMode {
     background-color: var(--button-pink);
+    font-size: 2vw;
+    font-weight: 600;
+    opacity: 0.8;
 }
 .lightMode .btnContainer {
     background-color: white;
@@ -121,7 +132,7 @@ body {
     font-weight: 600;
     opacity: 0.8;
 }
-.btn:hover {
+.btn:hover, .toggleLDMode:hover {
     opacity: 1;
     font-weight: 800;
 }
@@ -134,3 +145,45 @@ body {
 .darkMode .btn {
     color: white;
 }
+.btnContainer div{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+@media (max-width: 1080px) {
+    .gridContainer {
+        width: 40vw;
+        height: 48vw;
+        gap: 1vw;
+        line-height: 0%;
+    }
+    .btnContainer .btn, .btnContainer .toggleLDMode {
+        font-size: 3vw;
+    }
+}
+@media (max-width: 768px) {
+    .gridContainer {
+        width: 60vw;
+        height: 76vw;
+        gap: 1.2vw;
+    }
+    .btnContainer .btn, .btnContainer .toggleLDMode {
+        font-size: 5vw;
+    }
+}
+@media (max-width: 450px) {
+    .gridContainer {
+        width: 72vw;
+        height: 91.2vw;
+        gap: 1.2vw;
+    }
+    .btnContainer .btn, .btnContainer .toggleLDMode {
+        font-size: 5vw;
+    }
+}
+  
