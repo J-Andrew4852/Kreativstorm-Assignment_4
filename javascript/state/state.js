@@ -1,4 +1,4 @@
-const state {
+const state = {
   NUMBERS: 'NUMBERS',
   OPERATION: 'OPERATION',
 }
