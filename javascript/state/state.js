@@ -1,5 +1,6 @@
 const state {
-  INOPERATION: 'INOPERATION',
+  NUMBERS: 'NUMBERS',
+  OPERATION: 'OPERATION',
 }
 
 export default state;
