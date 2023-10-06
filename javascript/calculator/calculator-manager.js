@@ -30,10 +30,6 @@ class CalculatorManager {
       }
     }
 
-    console.log(resultString);
-
-    this.#allNumbers = [];
-    this.#currentNumbers = [String(eval(resultString))];
     console.log(eval(resultString));
   }
 
