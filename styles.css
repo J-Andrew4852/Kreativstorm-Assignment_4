@@ -1,143 +1,240 @@
 :root {
-    --button-blue: #4F53FF;
-    --button-purple: #5000D2;
-    --button-orange: #FF8236;
-    --button-green: #00A9A9;
-    --button-pink: #FF007A;
+  --button-blue: #4f53ff;
+  --button-purple: #5000d2;
+  --button-orange: #ff8236;
+  --button-green: #00a9a9;
+  --button-pink: #ff007a;
 
+  --dark-off-black: #0a0b17;
+  --dark-off-gray: #2c2840;
 
-    --dark-off-black: #0A0B17;
-    --dark-off-gray: #2C2840;
+  --light-off-white: #f9faf8;
+  --light-off-gray: #b2abc8;
 
-    --light-off-white: #F9FAF8; 
-    --light-off-gray: #B2ABC8;
-
-    font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 body {
-    display: flex;
-    justify-content: center;
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 .darkMode {
-    background-color: var(--dark-off-black);
+  background-color: var(--dark-off-black);
 }
 .lightMode {
-    background-color: var(--light-off-white);
+  background-color: var(--light-off-white);
 }
 .gridContainer {
-    margin-top: 5vh;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    height: 38vw;
-    width: 30vw;
-    border-radius: 3vw;
-    overflow: hidden;
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-    padding: 1.2vw 1.5vw 1.2vw 1.5vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0.7vw;
+  height: 38vw;
+  width: 30vw;
+  border-radius: 3vw;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out,
+    border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  padding: 1.2vw 1.5vw 1.2vw 1.5vw;
 }
 .darkMode .gridContainer {
-    background-color: var(--dark-off-gray);
-    border: 0.2vw solid var(--light-off-gray);
-    box-shadow: 0 0 3.3vw 0.8vw rgba(178, 171, 200, 0.30);
+  background-color: var(--dark-off-gray);
+  border: 0.2vw solid var(--light-off-gray);
+  box-shadow: 0 0 3.3vw 0.8vw rgba(178, 171, 200, 0.3);
 }
 .lightMode .gridContainer {
-    background-color: var(--light-off-gray);
-    border: 0.2vw solid var(--dark-off-gray);
-    box-shadow: 0 0 3.3vw 0.8vw rgba(10, 11, 23, 0.30);
+  background-color: var(--light-off-gray);
+  border: 0.2vw solid var(--dark-off-gray);
+  box-shadow: 0 0 3.3vw 0.8vw rgba(10, 11, 23, 0.3);
 }
 .screenContainer {
-    grid-column: span 4;
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-    margin-bottom: 0.5vw;
-    border-top-left-radius: 2vw;
-    border-top-right-radius: 2vw;
-    flex-direction: column;
+  grid-column: span 4;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  margin-bottom: 0.5vw;
+  border-top-left-radius: 2vw;
+  border-top-right-radius: 2vw;
+  overflow-x: auto;
+}
+.screenContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+  width: fit-content;
+  min-width: 100%;
 }
 .darkMode .screenContainer {
-    background-color: var(--light-off-gray);
+  background-color: var(--light-off-gray);
 }
 .lightMode .screenContainer {
-    background-color: white;
+  background-color: white;
 }
 .screenTop {
-    height: 35%;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    font-size: 20px;
-    text-align: right;
-    padding: 0 5px 0 0;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-size: 1.5vw;
+  text-align: right;
+  padding: 0 1.5vw 0 0;
+  margin: 0 0 0 0;
+  width: fit-content;
 }
 .screenMain {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    font-size: 35px;
-    text-align: right;
-    padding: 0 5px 50px 0;
+  height: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-size: 4vw;
+  text-align: right;
+  padding: 0 2vw 0 0;
+  margin: 0 0 0 0;
+  width: fit-content;
 }
 .btnContainer {
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
-    overflow: hidden;
-    border-radius: 1vw;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  overflow: hidden;
+  border-radius: 1vw;
 }
 .blue {
-    background-color: var(--button-blue);
+  background-color: var(--button-blue);
 }
 .purple {
-    background-color: var(--button-purple);
+  background-color: var(--button-purple);
 }
 .orange {
-    background-color: var(--button-orange);
+  background-color: var(--button-orange);
 }
 .green {
-    background-color: var(--button-green);
+  background-color: var(--button-green);
 }
 .toggleLDMode {
-    background-color: var(--button-pink);
+  background-color: var(--button-pink);
+  font-size: 2vw;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.active {
+  display: inline-block;
+}
+.inactive {
+  display: none;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+#sunIcon,
+#moonIcon {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+#sunIcon.active {
+  animation-name: fadeIn;
+}
+#moonIcon.active {
+  animation-name: fadeIn;
+}
+#sunIcon.inactive {
+  animation-name: fadeOut;
+}
+#moonIcon.inactive {
+  animation-name: fadeOut;
 }
 .lightMode .btnContainer {
-    background-color: white;
+  background-color: white;
 }
 .darkMode .btnContainer {
-    background-color: black;
+  background-color: black;
 }
 .btn {
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    grid-area: auto;
-    width: 100%;
-    height: 100%;
-    font-size: 2vw;
-    font-weight: 600;
-    opacity: 0.8;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  grid-area: auto;
+  width: 100%;
+  height: 100%;
+  font-size: 2vw;
+  font-weight: 600;
+  opacity: 0.8;
 }
-.btn:hover {
-    opacity: 1;
-    font-weight: 800;
+.btn:hover,
+.toggleLDMode:hover {
+  opacity: 1;
+  font-weight: 800;
 }
 .btnContainer .btn {
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 .lightMode .btn {
-    color: var(--dark-off-black);
+  color: var(--dark-off-black);
 }
 .darkMode .btn {
-    color: white;
+  color: white;
 }
-.btnContainer div{
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
+.btnContainer div {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+@media (max-width: 1080px) {
+  .gridContainer {
+    width: 40vw;
+    height: 48vw;
+    gap: 1vw;
+    line-height: 0%;
+  }
+  .btnContainer .btn,
+  .btnContainer .toggleLDMode {
+    font-size: 3vw;
+  }
+}
+@media (max-width: 768px) {
+  .gridContainer {
+    width: 60vw;
+    height: 76vw;
+    gap: 1.2vw;
+  }
+  .btnContainer .btn,
+  .btnContainer .toggleLDMode {
+    font-size: 5vw;
+  }
+  #sunIcon,
+  #moonIcon {
+    max-width: 50%;
+  }
+}
+@media (max-width: 450px) {
+  .gridContainer {
+    width: 72vw;
+    height: 91.2vw;
+    gap: 1.2vw;
+  }
+  .btnContainer .btn,
+  .btnContainer .toggleLDMode {
+    font-size: 5vw;
+  }
+  #sunIcon,
+  #moonIcon {
+    max-width: 30%;
+  }
 }
