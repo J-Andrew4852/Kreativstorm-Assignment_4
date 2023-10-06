@@ -30,11 +30,24 @@ class CalculatorManager {
       }
     }
 
+    console.log(resultString);
+
+    this.#allNumbers = [];
+    this.#currentNumbers = [String(eval(resultString))];
     console.log(eval(resultString));
   }
 
+  pushOperation(operation) {
+    this.#allNumbers.push([operation]);
+  }
+  
   pushCurrentNumber(number) {
     this.#currentNumbers.push(number);
+    console.log('Current numbers: ', this.#currentNumbers);
+  }
+
+  removeLatestNumber() {
+    this.#currentNumbers.pop();
     console.log('Current numbers: ', this.#currentNumbers);
   }
 
@@ -44,10 +57,13 @@ class CalculatorManager {
     console.log('All numbers: ', this.#allNumbers);
   }
 
-  pushOperation(operation) {
-    this.#allNumbers.push([operation]);
+  reset() {
+    this.#currentOperation = null;
+    this.#currentNumbers = [];
+    this.#allNumbers = [];
+    console.log('Current numbers: ', this.#currentNumbers);
   }
-  
+
   setState(calculatorState) {
     this.#calculatorState = calculatorState;
   }
@@ -58,6 +74,10 @@ class CalculatorManager {
 
   getCurrentNumbers() {
     return this.#currentNumbers;
+  }
+
+  getAllNumbers() {
+    return this.#allNumbers;
   }
 
   setCurrentOperation(operation) {

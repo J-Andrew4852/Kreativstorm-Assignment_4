@@ -3,16 +3,6 @@ import Keys from "./keys.js";
 import state from "../state/state.js";
 
 class Calculator {
-
-  static numberKeys = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  static operationKeys = ['+', '-', '%', '*', '/'];
-  static commandKeys = ['=', 'c', 'Backspace', 'Enter'];
-  static keys = [
-                  ...Calculator.numberKeys, 
-                  ...Calculator.operationKeys,
-                  ...Calculator.commandKeys
-                ];
-
   static run() {
     this.registerKeyboard();
     CalculatorManager.cm.setState(state.NUMBERS);
@@ -21,28 +11,31 @@ class Calculator {
   static registerKeyboard() {
     document.addEventListener('keydown', (event) => {
       if (!Keys.keys.includes(event.key)) return;
-      this.calculatorStateCases();
+      this.#calculatorStateCases();
     });
   }
 
-  static calculatorStateCases() {
+  static #calculatorStateCases() {
     switch (CalculatorManager.cm.getState()) {
       case state.NUMBERS:
-        this.calculatorNumberCase();
+        this.#calculatorNumberCase();
         break;
 
       case state.OPERATION:
-        this.calculatorOperationCase();
+        this.#calculatorOperationCase();
         break;
     }
   }
 
-  static calculatorNumberCase() {
+  static #calculatorNumberCase() {
     if (Keys.numberKeys.includes(event.key)) {
 
-      if (event.key === '.' && 
-      // Fix DOT situation where array size is 0.
-      CalculatorManager.cm.getCurrentNumbers().includes('.')) return;
+      if (event.key === '.') {
+        if (CalculatorManager.cm.getCurrentNumbers().includes('.')) return;
+        if (CalculatorManager.cm.getCurrentNumbers().length === 0) {
+          CalculatorManager.cm.pushCurrentNumber('0');
+        }
+      }
       CalculatorManager.cm.pushCurrentNumber(event.key);
     } else if (Keys.operationKeys.includes(event.key)) {
 
@@ -50,23 +43,28 @@ class Calculator {
       CalculatorManager.cm.setCurrentOperation(event.key);
       CalculatorManager.cm.setState(state.OPERATION);
     } else if (Keys.commandKeys.includes(event.key)) {
-      this.calculatorCommandCase(); 
+
+      this.#calculatorCommandCase(); 
     }
   }
 
-  static calculatorOperationCase() {
+  static #calculatorOperationCase() {
     if (Keys.operationKeys.includes(event.key)) {
 
       CalculatorManager.cm.setCurrentOperation(event.key);
     } else if (Keys.numberKeys.includes(event.key)) {
-
-      CalculatorManager.cm.pushOperation(CalculatorManager.cm.getCurrentOperation());
+      if (CalculatorManager.cm.getAllNumbers().length !== 0) {
+        CalculatorManager.cm.pushOperation(CalculatorManager.cm.getCurrentOperation());
+      }
       CalculatorManager.cm.setState(state.NUMBERS);
-      this.calculatorNumberCase();
+      this.#calculatorNumberCase();
+    } else if (Keys.commandKeys.includes(event.key)) {
+
+      this.#calculatorCommandCase();
     }
   }
 
-  static calculatorCommandCase() {
+  static #calculatorCommandCase() {
     switch (event.key) {
       case 'Enter':
         CalculatorManager.cm.updateAllNumbers();
@@ -76,6 +74,15 @@ class Calculator {
       case '=':
         CalculatorManager.cm.updateAllNumbers();
         CalculatorManager.cm.calculate();
+        break;
+
+      case 'Backspace':
+        if (CalculatorManager.cm.getState() === state.NUMBERS)
+          CalculatorManager.cm.removeLatestNumber();
+        break;
+
+      case 'c':
+        CalculatorManager.cm.reset();
         break;
     }
   }
