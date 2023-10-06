@@ -25,6 +25,10 @@ function calculate(button) {
         screenMainDisplay.textContent = formattedResult;
         calculation = [formattedResult];
         cumulativeCalculation = formattedResult;
+    }else if (value==="x"){
+        calculation.push("*");
+        cumulativeCalculation = calculation.join("");
+        screenTopDisplay.textContent = cumulativeCalculation;
     } else if (value === "+/-") {
         const lastIndex = calculation.length - 1;
         if (lastIndex >= 0 && !isNaN(calculation[lastIndex])) {
