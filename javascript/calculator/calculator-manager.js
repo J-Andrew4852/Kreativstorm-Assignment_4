@@ -27,7 +27,8 @@ class CalculatorManager {
                     total *= parseFloat(this.#history[i]);
                     break;
                 case '%':
-                    total /= 100;
+                    console.log('percent')
+                    total = parseFloat(this.#history[i]) / 100;
                     break;
             }
         }
@@ -67,8 +68,6 @@ class CalculatorManager {
         }
         Display.displayTopNumbers();
     }
-      
-
 
     pushCurrentNumberToHistory() {
         if (this.#currentNumbers.length === 0) return;
