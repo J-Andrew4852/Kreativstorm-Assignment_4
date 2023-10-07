@@ -1,5 +1,6 @@
 import CalculatorManager from "./calculator-manager.js";
 import Keys from "./keys.js";
+import Display from "../display/display.js"
 
 class Calculator {
     static run() {
@@ -74,7 +75,7 @@ class Calculator {
                 break;
 
             case 'c':
-                CalculatorManager.cm.reset();
+                CalculatorManager.cm.hardReset();
                 break;
             case 'ChangeSign':
                 CalculatorManager.cm.changeSignOfCurrentNumber();

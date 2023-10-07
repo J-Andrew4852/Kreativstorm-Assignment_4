@@ -1,4 +1,5 @@
 import Calculator from "./calculator/calculator.js";
+import Display from './display/display.js'
 
 const toggleButton = document.querySelector(".toggleLDMode");
 const sunIcon = document.getElementById("sunIcon");
