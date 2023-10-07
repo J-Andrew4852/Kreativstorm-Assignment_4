@@ -1,91 +1,86 @@
 import CalculatorManager from "./calculator-manager.js";
 import Keys from "./keys.js";
-import state from "../state/state.js";
 
 class Calculator {
-  static run() {
-    this.registerKeyboard();
-    CalculatorManager.cm.setState(state.NUMBERS);
-  }
-
-  static registerKeyboard() {
-    document.addEventListener('keydown', (event) => {
-      if (!Keys.keys.includes(event.key)) return;
-      this.#calculatorStateCases();
-    });
-  }
-
-  static #calculatorStateCases() {
-    switch (CalculatorManager.cm.getState()) {
-      case state.NUMBERS:
-        this.#calculatorNumberCase();
-        break;
-
-      case state.OPERATION:
-        this.#calculatorOperationCase();
-        break;
+    static run() {
+        this.registerKeyboard();
     }
-  }
 
-  static #calculatorNumberCase() {
-    if (Keys.numberKeys.includes(event.key)) {
+    static registerKeyboard() {
+        document.addEventListener('keydown', (event) => {
+            Calculator.#handleKeyPress(event.key)
+        });
 
-      if (event.key === '.') {
-        if (CalculatorManager.cm.getCurrentNumbers().includes('.')) return;
-        if (CalculatorManager.cm.getCurrentNumbers().length === 0) {
-          CalculatorManager.cm.pushCurrentNumber('0');
+        const elements = document.querySelectorAll("button[data-calculator]")
+        elements.forEach(el => {
+            el.addEventListener("click", () => {
+                switch (el.getAttribute("data-calculator")) {
+                    case 'generic':
+                        Calculator.#handleKeyPress(el.innerText);
+                        break;
+                    case 'reset':
+                        Calculator.#handleKeyPress('c');
+                        break;
+                    case 'changesign':
+                        Calculator.#handleKeyPress("ChangeSign");
+                        break;
+                }
+            })
+        })
+    }
+
+    static #handleKeyPress(key) {
+        if (!Keys.keys.includes(key)) return;
+
+        if (Keys.commandKeys.includes(key)) {
+            Calculator.#calculatorCommandCase(key)
         }
-      }
-      CalculatorManager.cm.pushCurrentNumber(event.key);
-    } else if (Keys.operationKeys.includes(event.key)) {
-
-      CalculatorManager.cm.updateAllNumbers();
-      CalculatorManager.cm.setCurrentOperation(event.key);
-      CalculatorManager.cm.setState(state.OPERATION);
-    } else if (Keys.commandKeys.includes(event.key)) {
-
-      this.#calculatorCommandCase(); 
+        if (Keys.numberKeys.includes(key)) {
+            Calculator.#calculatorNumberCase(key)
+        }
+        if (Keys.operationKeys.includes(key)) {
+            Calculator.#calculatorOperationCase(key)
+        }
     }
-  }
 
-  static #calculatorOperationCase() {
-    if (Keys.operationKeys.includes(event.key)) {
-
-      CalculatorManager.cm.setCurrentOperation(event.key);
-    } else if (Keys.numberKeys.includes(event.key)) {
-      if (CalculatorManager.cm.getAllNumbers().length !== 0) {
-        CalculatorManager.cm.pushOperation(CalculatorManager.cm.getCurrentOperation());
-      }
-      CalculatorManager.cm.setState(state.NUMBERS);
-      this.#calculatorNumberCase();
-    } else if (Keys.commandKeys.includes(event.key)) {
-
-      this.#calculatorCommandCase();
+    static #calculatorNumberCase(key) {
+        if (key === '.') {
+            if (CalculatorManager.cm.getCurrentNumbers().includes('.')) return;
+            if (CalculatorManager.cm.getCurrentNumbers().length === 0) {
+                CalculatorManager.cm.pushCurrentNumber('0');
+            }
+        }
+        CalculatorManager.cm.pushCurrentNumber(key);
     }
-  }
 
-  static #calculatorCommandCase() {
-    switch (event.key) {
-      case 'Enter':
-        CalculatorManager.cm.updateAllNumbers();
-        CalculatorManager.cm.calculate();
-        break;
-      
-      case '=':
-        CalculatorManager.cm.updateAllNumbers();
-        CalculatorManager.cm.calculate();
-        break;
-
-      case 'Backspace':
-        if (CalculatorManager.cm.getState() === state.NUMBERS)
-          CalculatorManager.cm.removeLatestNumber();
-        break;
-
-      case 'c':
-        CalculatorManager.cm.reset();
-        break;
+    static #calculatorOperationCase(key) {
+        CalculatorManager.cm.pushOperation(key);
     }
-  }
+
+    static #calculatorCommandCase(key) {
+        switch (key) {
+            case 'Enter':
+                CalculatorManager.cm.pushCurrentNumberToHistory();
+                CalculatorManager.cm.calculate();
+                break;
+
+            case '=':
+                CalculatorManager.cm.pushCurrentNumberToHistory();
+                CalculatorManager.cm.calculate();
+                break;
+
+            case 'Backspace':
+                CalculatorManager.cm.removeLatestNumber();
+                break;
+
+            case 'c':
+                CalculatorManager.cm.reset();
+                break;
+            case 'ChangeSign':
+                CalculatorManager.cm.changeSignOfCurrentNumber();
+                break;
+        }
+    }
 }
 
 

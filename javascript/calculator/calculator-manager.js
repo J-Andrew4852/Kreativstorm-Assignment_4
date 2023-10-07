@@ -1,88 +1,95 @@
-import Keys from "./keys.js";
-import state from "../state/state.js";
-
 class CalculatorManager {
-  
-  static cm = new this();
-  
-  #calculatorState;
-  #currentOperation;
-  #currentNumbers;
-  #allNumbers;
 
-  constructor() {
-    this.#currentOperation = null;
-    this.#calculatorState = null;
-    this.#currentNumbers = [];
-    this.#allNumbers = [];
-  }
+    static cm = new this();
 
-  calculate() {
-    let resultString = '';
+    #currentNumbers = [];
+    #history = [];
 
-    for (let i = 0; i < this.#allNumbers.length; i++) {
-      const array = this.#allNumbers[i];
-      if (Keys.operationKeys.includes(array[0])) {
-          resultString += array[0];
+    calculate() {
+        let total = parseFloat(this.#history[0]) ?? 0;
+        console.log("init > " + total)
+        for (let i = 0; i < this.#history.length; i += 2) {
+            if (i === 0) continue; // Already initialized
+            if (this.#history[i] === undefined) continue;
+            // Number
+            switch (this.#history[i - 1]) {
+                case '+':
+                    total += parseFloat(this.#history[i]);
+                    break;
+                case '-':
+                    total -= parseFloat(this.#history[i]);
+                    break;
+                case '/':
+                    total /= parseFloat(this.#history[i]);
+                    break;
+                case '*':
+                    total *= parseFloat(this.#history[i]);
+                    break;
+                case '%':
+                    total /= 100;
+                    break;
+            }
         }
-      else if (Keys.numberKeys.includes(array[0])) {
-        resultString += array.join('');
-      }
+
+        total = Math.round(total * 100) / 100;
+        console.log("total > " + total)
+
+        // reset the history and put the total in the history
+        this.reset();
+        this.#currentNumbers.push(String(total));
+        return total;
     }
 
-    console.log(eval(resultString));
-  }
+    pushOperation(operation) {
+        if (this.#currentNumbers.length === 0) return;
+        this.pushCurrentNumberToHistory();
+        this.#history.push(operation);
+        console.log('All numbers after operation: ', this.#history);
+    }
 
-  pushOperation(operation) {
-    this.#allNumbers.push([operation]);
-  }
-  
-  pushCurrentNumber(number) {
-    this.#currentNumbers.push(number);
-    console.log('Current numbers: ', this.#currentNumbers);
-  }
+    pushCurrentNumber(number) {
+        this.#currentNumbers.push(number);
 
-  removeLatestNumber() {
-    this.#currentNumbers.pop();
-    console.log('Current numbers: ', this.#currentNumbers);
-  }
+        console.log('Current numbers: ', this.#currentNumbers);
+    }
 
-  updateAllNumbers() {
-    this.#allNumbers.push(this.#currentNumbers);
-    this.#currentNumbers = [];
-    console.log('All numbers: ', this.#allNumbers);
-  }
+    removeLatestNumber() {
+        this.#currentNumbers.pop();
+        console.log('Current numbers: ', this.#currentNumbers);
+    }
 
-  reset() {
-    this.#currentOperation = null;
-    this.#currentNumbers = [];
-    this.#allNumbers = [];
-    console.log('Current numbers: ', this.#currentNumbers);
-  }
 
-  setState(calculatorState) {
-    this.#calculatorState = calculatorState;
-  }
+    pushCurrentNumberToHistory() {
+        if (this.#currentNumbers.length === 0) return;
+        this.#history.push(this.#currentNumbers.join(""));
+        this.#currentNumbers = [];
+        console.log('All numbers: ', this.#history);
+    }
 
-  getState() {
-    return this.#calculatorState;
-  }
+    reset() {
+        this.#currentNumbers = [];
+        this.#history = [];
+        console.log('Current numbers: ', this.#currentNumbers);
+    }
 
-  getCurrentNumbers() {
-    return this.#currentNumbers;
-  }
 
-  getAllNumbers() {
-    return this.#allNumbers;
-  }
+    getCurrentNumbers() {
+        return this.#currentNumbers;
+    }
 
-  setCurrentOperation(operation) {
-    this.#currentOperation = operation;
-  }
+    getAllNumbers() {
+        return this.#history;
+    }
 
-  getCurrentOperation() {
-    return this.#currentOperation;
-  }
+    changeSignOfCurrentNumber() {
+        if (this.#currentNumbers[0] === '-') {
+            this.#currentNumbers.shift();
+        } else {
+            this.#currentNumbers = ['-', ...this.#currentNumbers];
+        }
+        console.log('Current numbers: ', this.#currentNumbers);
+
+    }
 }
 
 export default CalculatorManager;
