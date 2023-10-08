@@ -113,6 +113,7 @@ class CalculatorManager {
     }
 
     changeSignOfCurrentNumber() {
+        if (this.#currentNumbers.length === 0) return;
         if (this.#currentNumbers[0]?.charAt(0) === '-') {
             this.#currentNumbers[0] = this.#currentNumbers[0].slice(1);
         } else {
