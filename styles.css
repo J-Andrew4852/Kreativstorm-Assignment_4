@@ -115,6 +115,9 @@ body {
   font-weight: 600;
   opacity: 0.8;
 }
+.toggleLDMode img {
+  width: 2vw;
+}
 .active {
   display: inline-block;
 }
@@ -207,6 +210,9 @@ body {
   .btnContainer .toggleLDMode {
     font-size: 3vw;
   }
+  .toggleLDMode img {
+    width: 3vw;
+  }
 }
 @media (max-width: 768px) {
   .gridContainer {
@@ -217,6 +223,9 @@ body {
   .btnContainer .btn,
   .btnContainer .toggleLDMode {
     font-size: 5vw;
+  }
+  .toggleLDMode img {
+    width: 5vw;
   }
   #sunIcon,
   #moonIcon {

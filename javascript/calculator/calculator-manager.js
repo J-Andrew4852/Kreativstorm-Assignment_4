@@ -113,15 +113,14 @@ class CalculatorManager {
     }
 
     changeSignOfCurrentNumber() {
-        if (this.#currentNumbers[0] === '-') {
-            this.#currentNumbers.shift();
+        if (this.#currentNumbers[0]?.charAt(0) === '-') {
+            this.#currentNumbers[0] = this.#currentNumbers[0].slice(1);
         } else {
-            this.#currentNumbers = ['-', ...this.#currentNumbers];
+            this.#currentNumbers[0] = '-' + this.#currentNumbers[0];
         }
         console.log('Current numbers: ', this.#currentNumbers);
         Display.displayTopNumbers();
         Display.displayMainNumbers();
-
     }
 }
 
