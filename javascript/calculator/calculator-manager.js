@@ -27,8 +27,8 @@ class CalculatorManager {
                     total *= parseFloat(this.#history[i]);
                     break;
                 case '%':
-                    console.log('percent')
-                    total = parseFloat(this.#history[i]) / 100;
+                    console.log('%')
+                    console.log('Hist', this.#history[i])
                     break;
             }
         }
@@ -45,7 +45,13 @@ class CalculatorManager {
     }
 
     pushOperation(operation) {
-        if (this.#currentNumbers.length === 0) return;
+        if (this.#currentNumbers.length === 0 && this.#history.length === 0) {
+            return;
+        }
+        if (this.#currentNumbers.length === 0 && this.#history.some(operator => ['+', '-', '*', '/'].includes(operator))) {
+            return;
+        }
+              
         this.pushCurrentNumberToHistory();
         this.#history.push(operation);
         console.log('All numbers after operation: ', this.#history);
@@ -59,12 +65,21 @@ class CalculatorManager {
     }
 
     removeLatestNumber() {
+        console.log('lastNum', this.#history, this.#currentNumbers)
         if (this.#currentNumbers.length > 0) {
             this.#currentNumbers.pop();
             console.log('Current numbers: ', this.#currentNumbers);
+            if (this.#currentNumbers.length === 0 && this.#history.length === 0) {
+                this.hardReset()
+            }
         } else if (this.#history.length > 0) {
             this.#history.pop();
             console.log('History: ', this.#history);
+            if (this.#history.length === 0) {
+                this.hardReset()
+            }
+        } else {
+            return
         }
         Display.displayTopNumbers();
     }
@@ -82,10 +97,11 @@ class CalculatorManager {
         console.log('Current numbers: ', this.#currentNumbers);
         Display.displayTopNumbers();
         Display.displayMainNumbers();
+        console.log('hardReset')
     }
     softReset() {
-        this.#currentNumbers = [];
         this.#history = [];
+        this.#currentNumbers = [];
         console.log('Current numbers: ', this.#currentNumbers);
     }
 

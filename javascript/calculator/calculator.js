@@ -55,6 +55,11 @@ class Calculator {
     }
 
     static #calculatorOperationCase(key) {
+        let allNumbers = CalculatorManager.cm.getAllNumbers();
+        const lastChar = allNumbers[allNumbers.length - 1];
+        if (['+', '-', '*', '/'].includes(lastChar)) {
+            return;
+        }
         CalculatorManager.cm.pushOperation(key);
     }
 
