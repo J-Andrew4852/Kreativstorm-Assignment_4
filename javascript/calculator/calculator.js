@@ -1,9 +1,11 @@
+import displayElements from "../display/display.js";
 import CalculatorManager from "./calculator-manager.js";
 import Keys from "./keys.js";
 
 class Calculator {
     static run() {
         this.registerKeyboard();
+        displayElements.displayLightDarkMode();
     }
 
     static registerKeyboard() {
@@ -56,7 +58,7 @@ class Calculator {
     static #calculatorOperationCase(key) {
         let allNumbers = CalculatorManager.cm.getAllNumbers();
         const lastChar = allNumbers[allNumbers.length - 1];
-        if (['+', '-', '*', '/'].includes(lastChar)) {
+        if (Keys.operationKeys.includes(lastChar)) {
             return;
         }
         CalculatorManager.cm.pushOperation(key);
