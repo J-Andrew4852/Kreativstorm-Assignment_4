@@ -32,7 +32,6 @@ class CalculatorManager {
                     break;
             }
         }
-
         total = Math.round(total * 100) / 100;
         console.log("total > " + total)
         this.#history.push("=");
@@ -104,7 +103,6 @@ class CalculatorManager {
         this.#currentNumbers = [];
         console.log('Current numbers: ', this.#currentNumbers);
     }
-
 
     getCurrentNumbers() {
         return this.#currentNumbers;
